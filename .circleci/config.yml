@@ -44,18 +44,13 @@ jobs:
         - image: docker:17.05.0-ce-git
     steps:
       - checkout
+      - setup_remote_docker
+      - run:
+          name: Verify docker is working
+          command: |
+            docker version
       # - restore_cache:
           # keys: [mvn-dependencies_v1]
-      - run:
-            name: install docker
-            command: |
-                docker run --privileged --name some-docker -d \
-                --network some-network --network-alias docker \
-                -e DOCKER_TLS_CERTDIR=/certs \
-                -v some-docker-certs-ca:/certs/ca \
-                -v some-docker-certs-client:/certs/client \
-                docker:dind
-                
       # - run: ./mvnw spring-boot:build-image
       
 
@@ -65,5 +60,5 @@ workflows:
       # - build
       # - test:
          # requires: [build]
-      - generate-docker-image-v2
+      - generate-docker-image
          # requires: [test]
