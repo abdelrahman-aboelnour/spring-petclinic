@@ -49,16 +49,16 @@ jobs:
           name: Verify docker is working
           command: |
             docker version
-      # - restore_cache:
-          # keys: [mvn-dependencies_v1]
-      # - run: ./mvnw spring-boot:build-image
+      - restore_cache:
+          keys: [mvn-dependencies_v1]
+      - run: ./mvnw spring-boot:build-image
       
 
 workflows:
   default:
     jobs:
-      # - build
-      # - test:
-         # requires: [build]
-      - generate-docker-image
-         # requires: [test]
+      - build
+      - test:
+         requires: [build]
+      - generate-docker-image:
+         requires: [test]
