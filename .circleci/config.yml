@@ -58,7 +58,7 @@ jobs:
       - run: docker images
       - run: |
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
-            docker tag spring-petclinic abdelrahmanaboelnour/spring-petclinic:3.0.0-SNAPSHOT
+            docker tag spring-petclinic:3.0.0-SNAPSHOT abdelrahmanaboelnour/spring-petclinic:3.0.0-SNAPSHOT
       - run: docker push abdelrahmanaboelnour/spring-petclinic:3.0.0-SNAPSHOT
  
 workflows:
