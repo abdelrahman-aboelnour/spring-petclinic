@@ -37,6 +37,7 @@ jobs:
             command: |
                 apk add --no-cache docker
                 dockerd &
+                docker -version
                 
                 
       - run: ./mvnw spring-boot:build-image
