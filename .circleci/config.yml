@@ -57,7 +57,7 @@ jobs:
       - run: ./mvnw spring-boot:build-image
       - run: docker images
       - run: |
-            echo '$DOCKERHUB_PASS' | docker login -u '$DOCKERHUB_USER' --password-stdin
+            echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
       - run: docker push spring-petclinic:latest
  
 workflows:
