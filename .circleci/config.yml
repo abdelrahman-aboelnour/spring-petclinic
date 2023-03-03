@@ -27,7 +27,7 @@ jobs:
 
   generate-docker-image:
     docker:
-      - image: openjdk:17-alpine
+      - image: docker:latest
     steps:
       - checkout
       # - restore_cache:
@@ -35,10 +35,6 @@ jobs:
       - run:
             name: install docker
             command: |
-                apk update
-                apk add --no-cache docker
-                apk add openrc --no-cache
-                dockerd --debug &
                 docker version
                 
       # - run: ./mvnw spring-boot:build-image
