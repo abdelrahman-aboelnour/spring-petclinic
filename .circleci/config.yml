@@ -1,0 +1,17 @@
+version: 1.0
+
+            
+jobs:
+  build:
+    docker:
+      - image: cimg/openjdk:17.0
+    steps:
+      - checkout
+      - run: java --version
+      - run: ./mvnw install
+
+
+workflows:
+  default:
+    jobs:
+      - build
