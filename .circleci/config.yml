@@ -27,7 +27,7 @@ jobs:
 
   generate-docker-image:
     docker:
-      - image: cimg/openjdk:17.0
+      - image: openjdk:17
     steps:
       - checkout
       - restore_cache:
