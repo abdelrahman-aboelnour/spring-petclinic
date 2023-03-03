@@ -27,7 +27,7 @@ jobs:
 
   generate-docker-image:
     docker:
-      - image: circleci/openjdk:17-alpine
+      - image: openjdk:17-alpine
     steps:
       - checkout
       - restore_cache:
