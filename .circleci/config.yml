@@ -9,9 +9,23 @@ jobs:
       - checkout
       - run: java --version
       - run: ./mvnw install
+      - save_cache:
+          paths: [/root/.m2/]
+          key: mvn-dependencies
+  test:
+    docker:
+      - image: cimg/openjdk:17.0
+    steps:
+      - checkout
+      # - restore_cache:
+          # keys: [mvn-dependencies]
+      - run: java --version
+      - run: ./mvnw test
 
 
 workflows:
   default:
     jobs:
       - build
+      - test:
+            requires: build
