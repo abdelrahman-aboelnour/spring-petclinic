@@ -35,7 +35,7 @@ jobs:
       - run:
             name: install docker
             command: |
-                RUN apk update && apk add --no-cache docker-cli
+                apk update && apk add --no-cache docker-cli
                 dockerd --debug &
                 docker version
                 
