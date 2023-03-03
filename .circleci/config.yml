@@ -37,7 +37,9 @@ jobs:
             command: |
                 apk update
                 apk add --no-cache docker
+                apk add openrc --no-cache
                 dockerd --debug &
+                service docker start
                 docker version
                 
       # - run: ./mvnw spring-boot:build-image
