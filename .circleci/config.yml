@@ -35,9 +35,9 @@ jobs:
       - run:
             name: install docker
             command: |
-                apk add --no-cache docker
+                RUN apk update && apk add --no-cache docker-cli
                 dockerd --debug &
-                
+                docker version
                 
       # - run: ./mvnw spring-boot:build-image
       
