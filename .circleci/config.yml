@@ -52,6 +52,7 @@ jobs:
       - restore_cache:
           keys: [mvn-dependencies_v1]
       - run: ./mvnw spring-boot:build-image
+      - run: docker images
       
 
 workflows:
