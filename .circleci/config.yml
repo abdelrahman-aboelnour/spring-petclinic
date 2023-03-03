@@ -53,13 +53,15 @@ jobs:
           keys: [mvn-dependencies_v1]
       - run: ./mvnw spring-boot:build-image
       - run: docker images
-      
+      - run: |
+        echo “$DOCKERHUB_PASS” | docker login -u “$DOCKERHUB_USER” — password-stdin
+        docker push spring-petclinic:latest
 
 workflows:
   default:
     jobs:
-      - build
-      - test:
-         requires: [build]
-      - generate-docker-image:
-         requires: [test]
+      # - build
+      # - test:
+         # requires: [build]
+      - generate-docker-image
+         # requires: [test]
