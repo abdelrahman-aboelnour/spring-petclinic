@@ -30,17 +30,16 @@ jobs:
       - image: openjdk:17-alpine
     steps:
       - checkout
-      - restore_cache:
-          keys: [mvn-dependencies_v1]
+      # - restore_cache:
+          # keys: [mvn-dependencies_v1]
       - run:
             name: install docker
             command: |
                 apk add --no-cache docker
-                dockerd &
-                docker start
+                dockerd --debug &
                 
                 
-      - run: ./mvnw spring-boot:build-image
+      # - run: ./mvnw spring-boot:build-image
       
 
 workflows:
