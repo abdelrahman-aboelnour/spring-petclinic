@@ -56,4 +56,4 @@ workflows:
       - test:
          requires: [build]
       - generate-docker-image:
-         requies: [test]
+         requires: [test]
