@@ -14,6 +14,7 @@ jobs:
       - save_cache:
           paths: [~/.m2]
           key: mvn-dependencies_v1
+          
   test:
     docker:
       - image: cimg/openjdk:17.0
@@ -24,6 +25,29 @@ jobs:
       - run: java --version
       - run: ./mvnw test
 
+  generate-docker-image:
+    docker:
+      - image: cimg/openjdk:17.0
+    steps:
+      - checkout
+      - restore_cache:
+          keys: [mvn-dependencies_v1]
+      - run:
+            name: install docker
+            command: |
+                sudo apt update
+                sudo apt install apt-transport-https curl gnupg-agent ca-certificates software-properties-common -y
+                curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+                curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+                sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+                sudo apt install docker-ce docker-ce-cli containerd.io -y
+                sudo usermod -aG docker $USER
+                newgrp docker
+                docker version
+                
+                
+      - run: ./mvnw spring-boot:build-image
+      
 
 workflows:
   default:
@@ -31,3 +55,5 @@ workflows:
       - build
       - test:
          requires: [build]
+      - generate-docker-image:
+         requies: [test]
