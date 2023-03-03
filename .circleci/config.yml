@@ -9,18 +9,18 @@ jobs:
       - checkout
       - run: java --version
       - restore_cache:
-          keys: [mvn-dependencies]
+          keys: [mvn-dependencies_v1]
       - run: ./mvnw install
       - save_cache:
           paths: [~/.m2]
-          key: mvn-dependencies
+          key: mvn-dependencies_v1
   test:
     docker:
       - image: cimg/openjdk:17.0
     steps:
       - checkout
       - restore_cache:
-          keys: [mvn-dependencies]
+          keys: [mvn-dependencies_v1]
       - run: java --version
       - run: ./mvnw test
 
