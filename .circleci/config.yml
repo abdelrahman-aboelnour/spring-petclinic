@@ -69,7 +69,7 @@ jobs:
 
   deploy_kubernetes_cluster:
     docker:
-      - image: cimg/aws
+      - image: cimg/aws:2023.01
     steps:
       - checkout
       - run:
