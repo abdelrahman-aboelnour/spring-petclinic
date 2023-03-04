@@ -14,6 +14,23 @@ jobs:
       - save_cache:
           paths: [~/.m2]
           key: mvn-dependencies_v1
+
+  lint:
+    docker:
+      - image: cimg/openjdk:17.0
+    steps:
+      - checkout
+      - run: java --version
+      - restore_cache:
+          keys: [mvn-dependencies_v1]
+      - run:
+            name: install PMD
+            command: |
+                cd $HOME
+                wget https://github.com/pmd/pmd/releases/download/pmd_releases%2F6.55.0/pmd-bin-6.55.0.zip
+                unzip pmd-bin-6.55.0.zip
+                alias pmd="$HOME/pmd-bin-6.55.0/bin/run.sh pmd"
+                pmd -d /spring-petclinic/src -R rulesets/java/quickstart.xml -f text
           
   test:
     docker:
@@ -67,5 +84,6 @@ workflows:
       # - build
       # - test:
          # requires: [build]
-      - generate-docker-image
+      - lint
+      # - generate-docker-image
          # requires: [test]
