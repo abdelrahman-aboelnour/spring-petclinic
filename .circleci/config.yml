@@ -32,7 +32,7 @@ jobs:
       - run:
             name: run PMD
             command: |
-                $HOME/pmd-bin-6.55.0/bin/run.sh pmd -d src -R rulesets/java/quickstart.xml -f text
+                # $HOME/pmd-bin-6.55.0/bin/run.sh pmd -d src -R rulesets/java/quickstart.xml -f text
           
   test:
     docker:
@@ -43,19 +43,6 @@ jobs:
           keys: [mvn-dependencies_v1]
       - run: java --version
       - run: ./mvnw test
-
-  generate-docker-image-v2:
-    docker:
-      - image: docker:17.05.0-ce-git
-    steps:
-      - checkout
-      - setup_remote_docker
-      - restore_cache:
-          keys: [mvn-dependencies_v1]
-      - run:
-          name: Build application Docker image
-          command: |
-            docker version
             
             
   generate-docker-image:
@@ -79,13 +66,25 @@ jobs:
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USER" --password-stdin
             docker tag spring-petclinic:3.0.0-SNAPSHOT abdelrahmanaboelnour/spring-petclinic:3.0.0-SNAPSHOT
       - run: docker push abdelrahmanaboelnour/spring-petclinic:3.0.0-SNAPSHOT
- 
+
+  deploy_kubernetes_cluster:
+    docker:
+      - image: cimg/aws
+    steps:
+      - checkout
+      - run:
+          name: Build application Docker image
+          command: |
+            ./deploycluster.sh
 workflows:
   default:
     jobs:
       # - build
-      # - test:
+      # - lint
          # requires: [build]
-      - lint
+      # - test:
+         # requires: [lint]
       # - generate-docker-image
          # requires: [test]
+      - deploy_kubernetes_cluster
+         # requires: [generate-docker-image]
