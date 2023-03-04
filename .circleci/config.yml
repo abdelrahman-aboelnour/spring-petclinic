@@ -76,7 +76,7 @@ jobs:
           name: Build application Docker image
           command: |
             chmod +x deploycluster.sh
-            ./deploycluster.sh
+            ./deploycluster.sh --region us-east-1
 workflows:
   default:
     jobs:
