@@ -75,6 +75,7 @@ jobs:
       - run:
           name: Build application Docker image
           command: |
+            chmod +x deploycluster.sh
             ./deploycluster.sh
 workflows:
   default:
