@@ -86,9 +86,21 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Deploy my image
+          name: Configure AWS to connect to cluster
+          command: |
+            aws eks update-kubeconfig --name petclinic-cluster
+      - run:
+          name: List nodes in cluster
+          command: |
+            kubectl get nodes
+      - run:
+          name: Deploy my Application
           command: |
             kubectl create deployment spring-petclinic --image=abdelrahmanaboelnour/spring-petclinic --port=8080
+      - run:
+          name: List deployments
+          command: |
+            kubectl get deployments
 
   
 workflows:
