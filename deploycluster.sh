@@ -4,7 +4,7 @@ set -e
 
 # EDIT THIS:
 #------------------------------------------------------------------------------#
-NUM_WORKER_NODES=2
+NUM_WORKER_NODES=1
 WORKER_NODES_INSTANCE_TYPE=t2.micro
 STACK_NAME=petclinic-cluster
 KEY_PAIR_NAME=PetClinic_Cluster_Nodes_KeyPair
