@@ -75,8 +75,7 @@ jobs:
       - run:
           name: Deploy EKS Cluster
           command: |
-            chmod +x deploycluster.sh
-            ./deploycluster.sh --region us-east-1
+            eksctl create cluster --name petclinic-cluster --region us-east-1
           no_output_timeout: 30m
             
             
