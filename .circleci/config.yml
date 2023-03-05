@@ -105,6 +105,7 @@ jobs:
       - run:
           name: Expose Port of my Applicationn deployment to internet
           command: |
+            kubectl delete service spring-petclinic
             kubectl expose deployment spring-petclinic --port=80 --target-port=8080 --type=NodePort
       - run:
           name: Display info about exposed port
