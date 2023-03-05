@@ -74,10 +74,10 @@ jobs:
       - checkout
       - run:
           name: Build application Docker image
-          timeout: 30m
           command: |
             chmod +x deploycluster.sh
             ./deploycluster.sh --region us-east-1
+          no_output_timeout: 30m
             
             
   deploy_kubernetes_application:
