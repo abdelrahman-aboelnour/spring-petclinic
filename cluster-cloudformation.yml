@@ -239,6 +239,16 @@ Resources:
       FromPort: 443
       ToPort: 443
 
+  WorkerNodesIngessInternetPort80:
+    Type: AWS::EC2::SecurityGroupIngress
+    Properties:
+      Description: Allow incoming web traffic (TCP/80) from internet
+      GroupId: !Ref WorkerNodesSecurityGroup
+      IpProtocol: tcp
+      FromPort: 80
+      ToPort: 80
+      CidrIp: 0.0.0.0/0
+
   #============================================================================#
   # Worker nodes (auto-scaling group)
   #============================================================================#
