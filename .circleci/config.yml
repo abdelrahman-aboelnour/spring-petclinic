@@ -106,14 +106,14 @@ jobs:
 workflows:
   default:
     jobs:
-      # - build
-      # - lint
-         # requires: [build]
-      # - test:
-         # requires: [lint]
-      # - generate-docker-image
-         # requires: [test]
-      # - deploy_kubernetes_cluster
-         # requires: [generate-docker-image]
-      - deploy_kubernetes_application
-         # requires: [deploy_kubernetes_cluster]
+      - build
+      - lint
+         requires: [build]
+      - test:
+         requires: [lint]
+      - generate-docker-image:
+         requires: [test]
+      - deploy_kubernetes_cluster:
+         requires: [generate-docker-image]
+      - deploy_kubernetes_application:
+         requires: [deploy_kubernetes_cluster]
