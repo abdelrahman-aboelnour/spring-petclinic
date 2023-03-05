@@ -73,7 +73,7 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Build application Docker image
+          name: Deploy EKS Cluster
           command: |
             chmod +x deploycluster.sh
             ./deploycluster.sh --region us-east-1
