@@ -96,6 +96,7 @@ jobs:
       - run:
           name: Deploy my Application
           command: |
+            kubectl delete deployment spring-petclinic
             kubectl create deployment spring-petclinic --image=abdelrahmanaboelnour/spring-petclinic --port=8080
       - run:
           name: List deployments
