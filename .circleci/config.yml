@@ -108,11 +108,15 @@ jobs:
       - run:
           name: Deploy my Application
           command: |
-            kubectl create deployment spring-petclinic --image=abdelrahmanaboelnour/spring-petclinic --port=8080 --expose=true --type=NodePort
+            kubectl create deployment spring-petclinic --image=abdelrahmanaboelnour/spring-petclinic --port=8080
       - run:
           name: List deployments
           command: |
             kubectl get deployments
+      - run:
+          name: Expose port
+          command: |
+            kubectl expose deployment spring-petclinic --type=NodePort --port=8080 --target-port=8080 --name=spring-petclinic-service --node-port=8080
       - run:
           name: Display info about exposed port
           command: |
