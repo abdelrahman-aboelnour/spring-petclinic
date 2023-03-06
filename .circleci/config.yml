@@ -116,7 +116,7 @@ jobs:
       - run:
           name: Expose port
           command: |
-            kubectl expose deployment spring-petclinic --type=NodePort --port=8080 --target-port=8080 --name=spring-petclinic-service --node-port=8080
+            kubectl expose deployment spring-petclinic --type=NodePort --port=8080 --target-port=8080 --name=spring-petclinic-service
       - run:
           name: Display info about exposed port
           command: |
@@ -127,14 +127,14 @@ jobs:
 workflows:
   default:
     jobs:
-      - build
-      - lint:
-         requires: [build]
-      - test:
-         requires: [lint]
-      - generate-docker-image:
-         requires: [test]
-      - deploy_kubernetes_cluster:
-         requires: [generate-docker-image]
-      - deploy_kubernetes_application:
-         requires: [deploy_kubernetes_cluster]
+      # - build
+      # - lint:
+         # requires: [build]
+      # - test:
+         # requires: [lint]
+      # - generate-docker-image:
+         # requires: [test]
+      # - deploy_kubernetes_cluster:
+         # requires: [generate-docker-image]
+      - deploy_kubernetes_application
+         # requires: [deploy_kubernetes_cluster]
