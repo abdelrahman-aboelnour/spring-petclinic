@@ -108,7 +108,7 @@ jobs:
       - run:
           name: Deploy my Application
           command: |
-            kubectl create deployment spring-petclinic --image=abdelrahmanaboelnour/spring-petclinic --port=8080
+            kubectl create deployment spring-petclinic --image=abdelrahmanaboelnour/spring-petclinic:3.0.0-SNAPSHOT --port=8080
       - run:
           name: List deployments
           command: |
