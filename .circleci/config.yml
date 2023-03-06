@@ -82,9 +82,8 @@ jobs:
       - run:
           name: Deploy EKS Cluster
           command: |
-            eksctl create cluster --name petclinic-cluster --region us-east-1 --region us-east-1 --zones us-east-1a,us-east-1b,us-east-1c --node-private-networking
+            eksctl create cluster --name petclinic-cluster --region us-east-1 --region us-east-1 --zones us-east-1a,us-east-1b,us-east-1c --node-private-networking || true
           no_output_timeout: 30m
-          ignore_exit_code: true
             
             
   deploy_kubernetes_application:
