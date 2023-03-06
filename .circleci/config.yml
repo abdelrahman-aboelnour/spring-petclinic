@@ -101,9 +101,9 @@ jobs:
             kubectl get nodes
       - run:
           name: Delete old deployment if exits
-          ignore: true
           command: |
             kubectl delete deployment spring-petclinic
+          ignore_exit_code: true
           
       - run:
           name: Deploy my Application
