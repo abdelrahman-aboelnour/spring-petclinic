@@ -100,19 +100,19 @@ jobs:
           command: |
             kubectl get nodes
       - run:
-          name: Deploy my Application
+          name: Delete old deployment if exits
+          ignore: true
           command: |
             kubectl delete deployment spring-petclinic
-            kubectl create deployment spring-petclinic --image=abdelrahmanaboelnour/spring-petclinic --port=8080
+          
+      - run:
+          name: Deploy my Application
+          command: |
+            kubectl create deployment spring-petclinic --image=abdelrahmanaboelnour/spring-petclinic --port=8080 --expose=true --type=NodePort
       - run:
           name: List deployments
           command: |
             kubectl get deployments
-      - run:
-          name: Expose Port of my Applicationn deployment to internet
-          command: |
-            kubectl delete service spring-petclinic
-            kubectl expose deployment spring-petclinic --port=80 --target-port=8080 --type=NodePort
       - run:
           name: Display info about exposed port
           command: |
