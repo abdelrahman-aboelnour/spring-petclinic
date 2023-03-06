@@ -134,7 +134,7 @@ workflows:
          # requires: [lint]
       # - generate-docker-image:
          # requires: [test]
-      # - deploy_kubernetes_cluster:
+      - deploy_kubernetes_cluster
          # requires: [generate-docker-image]
-      - deploy_kubernetes_application
-         # requires: [deploy_kubernetes_cluster]
+      - deploy_kubernetes_application:
+         requires: [deploy_kubernetes_cluster]
