@@ -32,7 +32,7 @@ jobs:
       - run:
             name: run PMD
             command: |
-                # $HOME/pmd-bin-6.55.0/bin/run.sh pmd -d src -R rulesets/java/quickstart.xml -f text
+                $HOME/pmd-bin-6.55.0/bin/run.sh pmd -d src -R rulesets/java/quickstart.xml -f text
           
   test:
     docker:
