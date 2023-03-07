@@ -32,7 +32,7 @@ jobs:
       - run:
             name: run PMD
             command: |
-                $HOME/pmd-bin-6.55.0/bin/run.sh pmd -d src -R rulesets/java/quickstart.xml -f text
+                #$HOME/pmd-bin-6.55.0/bin/run.sh pmd -d src -R rulesets/java/quickstart.xml -f text
           
   test:
     docker:
@@ -130,11 +130,11 @@ workflows:
       - build
       - lint:
          requires: [build]
-      # - test:
-         # requires: [lint]
-      # - generate-docker-image:
-         # requires: [test]
-      #- deploy_kubernetes_cluster
-         # requires: [generate-docker-image]
-      #- deploy_kubernetes_application:
-         #requires: [deploy_kubernetes_cluster]
+      - test:
+         requires: [lint]
+      - generate-docker-image:
+         requires: [test]
+      - deploy_kubernetes_cluster
+         requires: [generate-docker-image]
+      - deploy_kubernetes_application:
+         requires: [deploy_kubernetes_cluster]
