@@ -121,6 +121,46 @@ jobs:
           name: Display info about exposed port
           command: |
             kubectl describe service spring-petclinic-service
+            
+            
+            
+            
+            
+  update_kubernetes_application:
+    docker:
+      - image: cimg/aws:2023.01
+    steps:
+      - checkout
+      - run:
+          name: Configure AWS to connect to cluster
+          command: |
+            aws eks update-kubeconfig --name petclinic-cluster --region us-east-1
+      - run:
+          name: List nodes in cluster
+          command: |
+            kubectl get nodes
+      - run:
+          name: Delete old deployment if exits
+          command: |
+            kubectl delete deployment spring-petclinic || true
+          ignore_exit_code: true
+          
+      - run:
+          name: Deploy my Application
+          command: |
+            kubectl create deployment spring-petclinic --image=abdelrahmanaboelnour/spring-petclinic:3.0.0-SNAPSHOT --port=8080
+      - run:
+          name: List deployments
+          command: |
+            kubectl get deployments
+      - run:
+          name: Expose port
+          command: |
+            kubectl expose deployment spring-petclinic --type=LoadBalancer --name=my-service 
+      - run:
+          name: Display info about exposed port
+          command: |
+            kubectl describe service spring-petclinic-service
 
 
   
@@ -134,7 +174,7 @@ workflows:
          requires: [lint]
       - generate-docker-image:
          requires: [test]
-      - deploy_kubernetes_cluster
+      - deploy_kubernetes_cluster:
          requires: [generate-docker-image]
       - deploy_kubernetes_application:
          requires: [deploy_kubernetes_cluster]
